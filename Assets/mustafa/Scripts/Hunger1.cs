@@ -1,13 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class hunger : MonoBehaviour
+public class Hunger1 : MonoBehaviour
 {
     CharacterController controller;
     public Image Healthbar;
     public Image AclikBar;
+    public float AclikSaglikSuresi = 1f;
+    public float CanDusurmeSuresi = 5f;
+    public float AclikBariSuresi = 5f;
     [Range(0,100f)]
     float health = 100f;
 
@@ -15,6 +19,7 @@ public class hunger : MonoBehaviour
 
     void Start()
     {
+        InvokeRepeating("healthDecrease", 0f, CanDusurmeSuresi);
         controller = GetComponent<CharacterController>();
         StartCoroutine(AclikEnumartor());
         StartCoroutine(AclikSaglikArttirEnumarator());
@@ -25,18 +30,11 @@ public class hunger : MonoBehaviour
     {
         oldur();
 
+
     }
 
     private void FixedUpdate()
     {
-
-        if(aclikbardeger <= 0)
-        {
-            health -= 5f;
-            Healthbar.fillAmount = health / 100;
-        }
-
-
 
     }
 
@@ -53,6 +51,16 @@ public class hunger : MonoBehaviour
         {
             aclikbardeger += 0.02f;
             AclikBar.fillAmount = aclikbardeger;
+        }
+    }
+    void healthDecrease()
+    {
+        if(aclikbardeger <= 0){
+
+
+        health -= 5f;
+        Healthbar.fillAmount = health / 100;
+
         }
     }
 
@@ -76,7 +84,7 @@ public class hunger : MonoBehaviour
         {
             Debug.Log("Karakter yenildi");
             controller.enabled = false;
-
+            Destroy(this.gameObject);
             return;
         }
 
@@ -87,7 +95,7 @@ public class hunger : MonoBehaviour
         while (true)
         {
 
-            Invoke(nameof(AclikBariAzalt), 5);
+            Invoke(nameof(AclikBariAzalt), AclikBariSuresi);
             yield return new WaitForSeconds(1);
         }
 
@@ -96,7 +104,7 @@ public class hunger : MonoBehaviour
     {
         while (true)
         {
-            Invoke(nameof(AclikSaglikArttir), 1);
+            Invoke(nameof(AclikSaglikArttir), AclikSaglikSuresi);
             yield return new WaitForSeconds(1);
         }
 
