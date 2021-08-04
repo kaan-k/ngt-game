@@ -5,8 +5,7 @@ using UnityEngine;
 public class objectScript : MonoBehaviour
 {
     public objectAttributes objAttribs;
-
-
+    int layer_mask = 6;
 
     void Update()
     {
@@ -30,8 +29,13 @@ public class objectScript : MonoBehaviour
                       {
                           Destroy(this.gameObject);
                       }
-                      objAttribs.durability = objAttribs.durability - 0.5f;
-                      hit.transform.GetComponent<objectScript>().objAttribs.objectHealt = hit.transform.GetComponent<objectScript>().objAttribs.objectHealt - 0.5f;
+                      if(hit.transform.gameObject.CompareTag("tree"))
+                      {
+                         objAttribs.durability = objAttribs.durability - 0.5f;
+                         hit.transform.GetComponent<objectScript>().objAttribs.objectHealt = hit.transform.GetComponent<objectScript>().objAttribs.objectHealt - 0.5f;
+                      }
+                      //
+
                 }
             }
         }

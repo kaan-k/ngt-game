@@ -23,7 +23,6 @@ public class objectAttributes
      {
         case resourceType.Wood:
            Debug.Log("Loot Wood");
-           //objectSize ile çarpılarak loot verilecek. Daha büyük ağaç = Daha fazla odun
            break;
 
 
@@ -48,7 +47,7 @@ public class objectAttributes
       nar,
       Wood,
       Stone,
-      Dicks
+      Fuel
    }
    public enum itemType
    {
